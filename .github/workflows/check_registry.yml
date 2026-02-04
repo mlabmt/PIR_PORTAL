@@ -1,0 +1,33 @@
+name: Monitor Rejestru MF
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+
+      - name: Run fetch script
+        run: node fetch-news.mjs
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "PIR-Bot"
+          git config --global user.email "bot@pir-portal.pl"
+          git add src/content/news/*.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczny alert: Nowa domena" && git push)
