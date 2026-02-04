@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+import NewsCard from '../components/NewsCard.astro';
+import Newsletter from '../components/Newsletter.astro';
+
+const allNews = await getCollection('news');
+allNews.sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<MainLayout title="PIR | Portal Informacji Regulacyjnych">
+    <div class="section-title">Ostatnie zmiany prawa</div>
+
+    <section class="hero">
+        {allNews.map(item => (
+            <NewsCard
+                date={item.data.date}
+                tag={item.data.tag}
+                title={item.data.title}
+                description={item.data.description}
+                link={`/news/${item.slug}`}
+            />
+        ))}
+    </section>
+
+    <Newsletter />
+</MainLayout>

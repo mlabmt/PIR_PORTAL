@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+// 1. Generujemy ścieżki dla każdego newsa w folderze content/news
+export async function getStaticPaths() {
+  const newsEntries = await getCollection('news');
+  return newsEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+// 2. Pobieramy dane konkretnego newsa
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<MainLayout title={entry.data.title}>
+  <article class="news-detail">
+    <div class="news-header">
+      <span class="tag">{entry.data.tag}</span>
+      <div class="date">{entry.data.date}</div>
+      <h1>{entry.data.title}</h1>
+    </div>
+    
+    <div class="content">
+      <Content />
+    </div>
+
+    <div class="source-info">
+      <p>Źródło: Administracja Rządowa (Monitor Polski)</p>
+      <a href="/" class="back-link">← Powrót do aktualności</a>
+    </div>
+  </article>
+</MainLayout>
+
+<style>
+  .news-detail {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    color: white;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 12px;
+  }
+  .news-header h1 { font-size: 2.5rem; margin: 10px 0; color: #fff; }
+  .tag { background: #e63946; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
+  .date { color: #94a3b8; margin-top: 10px; font-size: 0.9rem; }
+  .content { line-height: 1.8; font-size: 1.1rem; margin-top: 30px; color: #cbd5e1; }
+  .back-link { display: inline-block; margin-top: 30px; color: #e63946; text-decoration: none; }
+</style>

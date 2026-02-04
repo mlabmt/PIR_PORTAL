@@ -1,0 +1,14 @@
+---
+const { date, tag, title, description, link = "#" } = Astro.props;
+---
+<div class="chat-news-item">
+    <div class="news-wrapper">
+        <div class="chat-timestamp">{date}</div>
+        <div class="news-main">
+            <span class="tag">{tag}</span>
+            <h1>{title}</h1>
+            <p>{description}</p>
+        </div>
+        <a href={link} class="btn-news">SZCZEGÓŁY</a>
+    </div>
+</div>
