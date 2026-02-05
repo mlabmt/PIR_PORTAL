@@ -1,5 +1,10 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: mlabmt/PIR_PORTAL # Upewnij się, że to nazwa Twojego repo
+  branch: main
+  base_url: https://pirpolska.netlify.app
+  auth_endpoint: /api/auth
+
   branch: main # Upewnij się, że Twoja gałąź to main
 
 media_folder: "public/images/uploads" # Gdzie będą trafiać zdjęcia
@@ -17,3 +22,4 @@ collections:
       - { label: "Tag", name: "tag", widget: "select", options: ["Hazard", "Legislacja", "Komunikat"] }
       - { label: "Opis (SEO)", name: "description", widget: "string" }
       - { label: "Treść Artykułu", name: "body", widget: "markdown" }
+
