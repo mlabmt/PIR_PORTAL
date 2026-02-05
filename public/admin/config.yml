@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main # Upewnij się, że Twoja gałąź to main
+
+media_folder: "public/images/uploads" # Gdzie będą trafiać zdjęcia
+public_folder: "/images/uploads"
+
+collections:
+  - name: "news"
+    label: "Wiadomości"
+    folder: "src/content/news" # Ścieżka do Twoich plików .md
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Tytuł", name: "title", widget: "string" }
+      - { label: "Data Publikacji", name: "date", widget: "datetime" }
+      - { label: "Tag", name: "tag", widget: "select", options: ["Hazard", "Legislacja", "Komunikat"] }
+      - { label: "Opis (SEO)", name: "description", widget: "string" }
+      - { label: "Treść Artykułu", name: "body", widget: "markdown" }
