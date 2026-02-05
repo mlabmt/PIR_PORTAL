@@ -1,19 +1,17 @@
 backend:
   name: github
-  repo: mlabmt/PIR_PORTAL # Upewnij się, że to nazwa Twojego repo
+  repo: mlabmt/PIR_PORTAL
   branch: main
   base_url: https://pirpolska.netlify.app
   auth_endpoint: /api/auth
 
-  branch: main # Upewnij się, że Twoja gałąź to main
-
-media_folder: "public/images/uploads" # Gdzie będą trafiać zdjęcia
+media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
   - name: "news"
     label: "Wiadomości"
-    folder: "src/content/news" # Ścieżka do Twoich plików .md
+    folder: "src/content/news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
@@ -22,4 +20,3 @@ collections:
       - { label: "Tag", name: "tag", widget: "select", options: ["Hazard", "Legislacja", "Komunikat"] }
       - { label: "Opis (SEO)", name: "description", widget: "string" }
       - { label: "Treść Artykułu", name: "body", widget: "markdown" }
-
